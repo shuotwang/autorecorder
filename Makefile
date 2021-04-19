@@ -66,7 +66,11 @@ APP_OBJS = $(OBJ_DIR)/main.o                    \
     $(OBJ_DIR)/RISCVSYSTypeInstruction.o        \
     $(OBJ_DIR)/RISCVBlockInstructionCache.o     \
     $(OBJ_DIR)/MSXFont.o                        \
-    $(OBJ_DIR)/VideoController.o
+    $(OBJ_DIR)/VideoController.o                \
+    # $(OBJ_DIR)/document.o                       \
+    # $(OBJ_DIR)/writer.o                         \
+    # $(OBJ_DIR)/stringbuffer.o
+
 
 all: directories $(BIN_DIR)/$(APP_NAME)
 
