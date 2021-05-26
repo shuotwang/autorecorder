@@ -133,6 +133,11 @@ bool CRISCVConsoleApplication::ClearButtonClickEventCallback(std::shared_ptr<CGU
     return App->ClearButtonClickEvent(widget,event);
 }
 
+bool CRISCVConsoleApplication::RecordButtonToggledEventCallback(std::shared_ptr<CGUIWidget> widget, TGUICalldata data){
+    CRISCVConsoleApplication *App = static_cast<CRISCVConsoleApplication *>(data);
+    return App->RecordButtonToggledEvent(widget);
+}
+
 bool CRISCVConsoleApplication::InstructionComboBoxChangedEventCallback(std::shared_ptr<CGUIWidget> widget, TGUICalldata data){
     CRISCVConsoleApplication *App = static_cast<CRISCVConsoleApplication *>(data);
     return App->InstructionComboBoxChangedEvent(widget);
@@ -408,6 +413,12 @@ bool CRISCVConsoleApplication::ClearButtonClickEvent(std::shared_ptr<CGUIWidget>
         DDebugInstructions->UpdateBufferedLine(LineIndex, Line);
     }
     DRISCVConsole->ClearBreakpoints();
+    return true;
+}
+
+bool CRISCVConsoleApplication::RecordButtonToggledEvent(std::shared_ptr<CGUIWidget> widget){
+
+    
     return true;
 }
 
@@ -701,6 +712,7 @@ void CRISCVConsoleApplication::CreateDebugControlWidgets(){
     DDebugRunButton = CGUIFactory::NewToggleButton();
     DDebugStepButton = CGUIFactory::NewButton();
     DDebugClearButton = CGUIFactory::NewButton();
+    DDebugRecordButton = CGUIFactory::NewToggleButton();
 
     DDebugRunButton->SetLabel("Run");
     DDebugRunButton->SetToggledEventCallback(this, RunButtonToggledEventCallback);
@@ -710,9 +722,14 @@ void CRISCVConsoleApplication::CreateDebugControlWidgets(){
 
     DDebugClearButton->SetLabel("Clear");
     DDebugClearButton->SetButtonPressEventCallback(this,ClearButtonClickEventCallback);
+
+    DDebugRecordButton->SetLabel("Record");
+    DDebugRecordButton->SetToggledEventCallback(this, RecordButtonToggledEventCallback);
+
     DDebugControlBox->PackStart(DDebugRunButton,false,false,GetWidgetSpacing());
     DDebugControlBox->PackStart(DDebugStepButton,false,false,GetWidgetSpacing());
     DDebugControlBox->PackStart(DDebugClearButton,false,false,GetWidgetSpacing());
+    DDebugControlBox->PackStart(DDebugRecordButton,false,false,GetWidgetSpacing());
 
 }
 

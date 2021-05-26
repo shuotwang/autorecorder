@@ -53,6 +53,7 @@ class CRISCVConsoleApplication : public std::enable_shared_from_this<CRISCVConso
         std::shared_ptr<CGUIToggleButton> DDebugRunButton;
         std::shared_ptr<CGUIButton> DDebugStepButton;
         std::shared_ptr<CGUIButton> DDebugClearButton;
+        std::shared_ptr<CGUIToggleButton> DDebugRecordButton;
         
         std::shared_ptr<CGUIComboBox> DDebugInstructionComboBox;
         std::shared_ptr<CGUIScrollableLabelBox> DDebugInstructions;
@@ -101,6 +102,7 @@ class CRISCVConsoleApplication : public std::enable_shared_from_this<CRISCVConso
         static bool RunButtonToggledEventCallback(std::shared_ptr<CGUIWidget> widget, TGUICalldata data);
         static bool StepButtonClickEventCallback(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event, TGUICalldata data);
         static bool ClearButtonClickEventCallback(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event, TGUICalldata data);
+        static bool RecordButtonToggledEventCallback(std::shared_ptr<CGUIWidget> widget, TGUICalldata data);
         static bool InstructionComboBoxChangedEventCallback(std::shared_ptr<CGUIWidget> widget, TGUICalldata data);
         static bool InstructionBoxButtonEventCallback(std::shared_ptr<CGUIScrollableLabelBox> widget, SGUIButtonEvent &event, size_t line, TGUICalldata data);
         static bool InstructionBoxScrollEventCallback(std::shared_ptr<CGUIScrollableLabelBox> widget, TGUICalldata data);
@@ -128,6 +130,7 @@ class CRISCVConsoleApplication : public std::enable_shared_from_this<CRISCVConso
         bool RunButtonToggledEvent(std::shared_ptr<CGUIWidget> widget);
         bool StepButtonClickEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event);
         bool ClearButtonClickEvent(std::shared_ptr<CGUIWidget> widget, SGUIButtonEvent &event);
+        bool RecordButtonToggledEvent(std::shared_ptr<CGUIWidget> widget);
         bool InstructionComboBoxChangedEvent(std::shared_ptr<CGUIWidget> widget);
         bool InstructionBoxButtonEvent(std::shared_ptr<CGUIScrollableLabelBox> widget, SGUIButtonEvent &event, size_t line);
         bool InstructionBoxScrollEvent(std::shared_ptr<CGUIScrollableLabelBox> widget);
