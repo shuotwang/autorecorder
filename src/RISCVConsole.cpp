@@ -294,6 +294,7 @@ void CRISCVConsole::Reset(){
 
 void CRISCVConsole::PowerOn(){
     Reset();
+    std::cout << DDebugMode << std::endl;
     if(!DDebugMode){
         SystemRun();
     }
