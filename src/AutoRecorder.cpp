@@ -37,23 +37,15 @@ const std::string CAutoRecorder::CMD_BUTTON_STRING = "CMDBtn";
 bool CAutoRecorder::AddFWEvent(std::string &data) {
     rapidjson::Document::AllocatorType &Allocator = DOutputJSONDocument.GetAllocator();
     
-    rapidjson::Value root(rapidjson::kObjectType);
-    rapidjson::Value key(rapidjson::kStringType);  
-    rapidjson::Value value(rapidjson::kStringType); 
+    rapidjson::Value Root(rapidjson::kObjectType);
+    rapidjson::Value Data(rapidjson::kStringType);
+    Data.SetString(data.c_str(), Allocator);
 
-    key.SetString("Cycle", Allocator);  
-    value.SetString(std::to_string(DCycleCount).c_str(), Allocator);  
-    root.AddMember(key, value, Allocator);
+    Root.AddMember("Cycle", DCycleCount, Allocator);  
+    Root.AddMember("Type", "InsertFW", Allocator);
+    Root.AddMember("Data", Data, Allocator);
 
-    key.SetString("Type", Allocator);  
-    value.SetString("InsertFW", Allocator);  
-    root.AddMember(key, value, Allocator);
-
-    key.SetString("Data", Allocator);  
-    value.SetString(data.c_str(), Allocator);  
-    root.AddMember(key, value, Allocator);
-
-    DOutputJSONObjectArray.PushBack(root, Allocator);
+    DOutputJSONObjectArray.PushBack(Root, Allocator);
 
     return true;
 }
@@ -61,46 +53,30 @@ bool CAutoRecorder::AddFWEvent(std::string &data) {
 bool CAutoRecorder::AddCREvent(std::string &data) {
     rapidjson::Document::AllocatorType &Allocator = DOutputJSONDocument.GetAllocator();
     
-    rapidjson::Value root(rapidjson::kObjectType);
-    rapidjson::Value key(rapidjson::kStringType);  
-    rapidjson::Value value(rapidjson::kStringType); 
+    rapidjson::Value Root(rapidjson::kObjectType);
+    rapidjson::Value Data(rapidjson::kStringType);
+    Data.SetString(data.c_str(), Allocator);
 
-    key.SetString("Cycle", Allocator);  
-    value.SetString(std::to_string(DCycleCount).c_str(), Allocator);  
-    root.AddMember(key, value, Allocator);
+    Root.AddMember("Cycle", DCycleCount, Allocator);  
+    Root.AddMember("Type", "InsertCR", Allocator);
+    Root.AddMember("Data", Data, Allocator);
 
-    key.SetString("Type", Allocator);  
-    value.SetString("InsertCR", Allocator);  
-    root.AddMember(key, value, Allocator);
-
-    key.SetString("Data", Allocator);  
-    value.SetString(data.c_str(), Allocator);  
-    root.AddMember(key, value, Allocator);
-
-    DOutputJSONObjectArray.PushBack(root, Allocator);
+    DOutputJSONObjectArray.PushBack(Root, Allocator);
 
     return true;
 }
 bool CAutoRecorder::AddDirectionEvent(std::string &type){
     rapidjson::Document::AllocatorType &Allocator = DOutputJSONDocument.GetAllocator();
     
-    rapidjson::Value root(rapidjson::kObjectType);
-    rapidjson::Value key(rapidjson::kStringType);  
-    rapidjson::Value value(rapidjson::kStringType); 
+    rapidjson::Value Root(rapidjson::kObjectType);
+    rapidjson::Value Type(rapidjson::kStringType);
+    Type.SetString(type.c_str(), Allocator);
 
-    key.SetString("Cycle", Allocator);  
-    value.SetString(std::to_string(DCycleCount).c_str(), Allocator);  
-    root.AddMember(key, value, Allocator);
+    Root.AddMember("Cycle", DCycleCount, Allocator);  
+    Root.AddMember("Type", Type, Allocator);
+    Root.AddMember("Data", "", Allocator);
 
-    key.SetString("Type", Allocator);  
-    value.SetString(type.c_str(), Allocator);  
-    root.AddMember(key, value, Allocator);
-
-    key.SetString("Data", Allocator);  
-    value.SetString("", Allocator);  
-    root.AddMember(key, value, Allocator);
-
-    DOutputJSONObjectArray.PushBack(root, Allocator);
+    DOutputJSONObjectArray.PushBack(Root, Allocator);
 
     return true;
 }
@@ -108,23 +84,15 @@ bool CAutoRecorder::AddDirectionEvent(std::string &type){
 bool CAutoRecorder::AddButtonEvent(std::string &type) {
     rapidjson::Document::AllocatorType &Allocator = DOutputJSONDocument.GetAllocator();
     
-    rapidjson::Value root(rapidjson::kObjectType);
-    rapidjson::Value key(rapidjson::kStringType);  
-    rapidjson::Value value(rapidjson::kStringType); 
+    rapidjson::Value Root(rapidjson::kObjectType);
+    rapidjson::Value Type(rapidjson::kStringType);
+    Type.SetString(type.c_str(), Allocator);
 
-    key.SetString("Cycle", Allocator);  
-    value.SetString(std::to_string(DCycleCount).c_str(), Allocator);  
-    root.AddMember(key, value, Allocator);
+    Root.AddMember("Cycle", DCycleCount, Allocator);  
+    Root.AddMember("Type", Type, Allocator);
+    Root.AddMember("Data", "", Allocator);
 
-    key.SetString("Type", Allocator);  
-    value.SetString(type.c_str(), Allocator);  
-    root.AddMember(key, value, Allocator);
-
-    key.SetString("Data", Allocator);  
-    value.SetString("", Allocator);  
-    root.AddMember(key, value, Allocator);
-
-    DOutputJSONObjectArray.PushBack(root, Allocator);
+    DOutputJSONObjectArray.PushBack(Root, Allocator);
 
     return true;
 }
@@ -132,13 +100,18 @@ bool CAutoRecorder::AddButtonEvent(std::string &type) {
 void CAutoRecorder::OutputJSONFile(std::string &path) {
     rapidjson::Document::AllocatorType &OutputAllocator = DOutputJSONDocument.GetAllocator();
     DOutputJSONDocument.AddMember("Members", DOutputJSONObjectArray, OutputAllocator);
+
     FILE* f = fopen(path.c_str(), "w");
 	char WriteBuffer[65535];
 	rapidjson::FileWriteStream os(f, WriteBuffer, sizeof(WriteBuffer));
 
+    std::cout << "here0" << std::endl;
+
 	rapidjson::PrettyWriter<rapidjson::FileWriteStream> Writer(os);
 	DOutputJSONDocument.Accept(Writer);
 	fclose(f);
+
+    std::cout << "here1" << std::endl;
 }
 
 CAutoRecorder::CAutoRecorder() {

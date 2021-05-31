@@ -182,6 +182,7 @@ bool CRISCVConsole::SystemRecordStop(std::string &filePath) {
     SystemStop();
     DAutoRecorder->OutputJSONFile(filePath);
     DAutoRecorder->Reset();
+    return true;
 }
 
 void CRISCVConsole::ResetComponents(){
@@ -342,13 +343,13 @@ bool CRISCVConsole::RecordStop(std::string &filePath){
 void CRISCVConsole::PressDirection(EDirection dir){
     std::string Type;
     if (dir == EDirection::Up) {
-        Type == CAutoRecorder::DIRECTION_UP_STRING;
+        Type = CAutoRecorder::DIRECTION_UP_STRING;
     } else if (dir == EDirection::Down) {
-        Type == CAutoRecorder::DIRECTION_DOWN_STRING;
+        Type = CAutoRecorder::DIRECTION_DOWN_STRING;
     } else if (dir == EDirection::Left) {
-        Type == CAutoRecorder::DIRECTION_LEFT_STRING;
+        Type = CAutoRecorder::DIRECTION_LEFT_STRING;
     } else if (dir == EDirection::Right) {
-        Type == CAutoRecorder::DIRECTION_RIGHT_STRING;
+        Type = CAutoRecorder::DIRECTION_RIGHT_STRING;
     }
     DAutoRecorder->AddDirectionEvent(Type);
     DChipset->ControllerPress(to_underlying(dir));
@@ -361,13 +362,13 @@ void CRISCVConsole::ReleaseDirection(EDirection dir){
 void CRISCVConsole::PressButton(EButtonNumber button){
     std::string Type;
     if (button == EButtonNumber::Button1) {
-        Type == CAutoRecorder::U_BUTTON_STRING;
+        Type = CAutoRecorder::U_BUTTON_STRING;
     } else if (button == EButtonNumber::Button2) {
-        Type == CAutoRecorder::I_BUTTON_STRING;
+        Type = CAutoRecorder::I_BUTTON_STRING;
     } else if (button == EButtonNumber::Button3) {
-        Type == CAutoRecorder::J_BUTTON_STRING;
+        Type = CAutoRecorder::J_BUTTON_STRING;
     } else if (button == EButtonNumber::Button4) {
-        Type == CAutoRecorder::K_BUTTON_STRING;
+        Type = CAutoRecorder::K_BUTTON_STRING;
     }
     DAutoRecorder->AddButtonEvent(Type);
     DChipset->ControllerPress(to_underlying(button));

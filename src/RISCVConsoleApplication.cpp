@@ -426,8 +426,11 @@ bool CRISCVConsoleApplication::RecordButtonToggledEvent(std::shared_ptr<CGUIWidg
         if(FileChooser->Run()){
             Filename = FileChooser->GetFilename();
             if (DRISCVConsole->RecordStop(Filename)) {
+                // std::cout << "here1" << std::endl;
                 RefreshDebugRegisters();
+                // std::cout << "here2" << std::endl;
                 DRISCVConsole->Stop();
+                // std::cout << "here3" << std::endl;
             }
 
 
