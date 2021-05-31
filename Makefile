@@ -34,6 +34,7 @@ CPPFLAGS += -std=c++14
 APP_NAME = autorecorder
 
 APP_OBJS = $(OBJ_DIR)/main.o                    \
+    $(OBJ_DIR)/AutoRecorder.o            \
     $(OBJ_DIR)/GraphicFactoryCairo.o            \
     $(OBJ_DIR)/GUIFactoryGTK3.o                 \
     $(OBJ_DIR)/GUIScrollableLabelBox.o          \

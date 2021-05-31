@@ -236,6 +236,7 @@ bool CRISCVConsoleApplication::FirmwareButtonClickEvent(std::shared_ptr<CGUIWidg
             DFileOpenFolder = FileChooser->GetCurrentFolder();
             auto InFile = std::make_shared<CFileDataSource>(Filename);
             if(DRISCVConsole->ProgramFirmware(InFile)){
+                DRISCVConsole->AddFWEvent(Filename);
                 if(DDebugMode){
                     DDebugInstructions->SetBufferedLines(DRISCVConsole->InstructionStrings());
                     DDebugInstructionComboBox->ClearItems();
@@ -264,6 +265,7 @@ bool CRISCVConsoleApplication::CartridgeButtonToggledEvent(std::shared_ptr<CGUIW
             DFileOpenFolder = FileChooser->GetCurrentFolder();
             auto InFile = std::make_shared<CFileDataSource>(Filename);
             if(DRISCVConsole->InsertCartridge(InFile)){
+                DRISCVConsole->AddCREvent(Filename);
                 if(DDebugMode){
                     DDebugInstructions->SetBufferedLines(DRISCVConsole->InstructionStrings());
                     DDebugInstructionComboBox->ClearItems();
@@ -417,7 +419,38 @@ bool CRISCVConsoleApplication::ClearButtonClickEvent(std::shared_ptr<CGUIWidget>
 }
 
 bool CRISCVConsoleApplication::RecordButtonToggledEvent(std::shared_ptr<CGUIWidget> widget){
+    if(!DDebugRecordButton->GetActive()){
+        std::string Filename;
+        auto FileChooser = CGUIFactory::NewFileChooserDialog("Save Record",false,DMainWindow);
+        FileChooser->SetCurrentFolder(DFileOpenFolder);
+        if(FileChooser->Run()){
+            Filename = FileChooser->GetFilename();
+            if (DRISCVConsole->RecordStop(Filename)) {
+                RefreshDebugRegisters();
+                DRISCVConsole->Stop();
+            }
 
+
+            // if(DRISCVConsole->InsertCartridge(InFile)){
+            //     if(DDebugMode){
+            //         DDebugInstructions->SetBufferedLines(DRISCVConsole->InstructionStrings());
+            //         DDebugInstructionComboBox->ClearItems();
+            //         for(auto &Label : DRISCVConsole->InstructionLabels()){
+            //             DDebugInstructionComboBox->AppendItem(Label);
+            //         }
+            //         RefreshDebugRegisters();
+            //     }
+            // }
+            // else{
+            //     DCartridgeButton->SetActive(false);
+
+            // }
+        }
+        // DCartridgeInLoading = false;
+    }
+    else{
+        DRISCVConsole->RecordStart();
+    }
     
     return true;
 }

@@ -8,6 +8,7 @@
 #include "FlashMemoryDevice.h"
 #include "VideoController.h"
 #include "DataSource.h"
+#include "AutoRecorder.h"
 #include <thread>
 #include <mutex>
 #include <condition_variable>
@@ -29,6 +30,10 @@ class CRISCVConsole{
         uint32_t DDebugCPUFreq;
         uint32_t DVideoTicks;
         uint32_t DTimerTicks;
+
+        // autorecorder change
+        std::shared_ptr< CAutoRecorder > DAutoRecorder;
+
         std::atomic< bool > DRefreshScreenBuffer;
         size_t DPendingReleaseBuffer;
         std::shared_ptr< CRISCVCPU > DCPU;
@@ -94,6 +99,11 @@ class CRISCVConsole{
         void ConstructCartridgeStrings(CElfLoad &elffile);
         void MarkBreakpointStrings();
 
+        // autograder change
+        void SystemRecordStart();
+        bool SystemRecordStop(std::string &filePath);
+
+
     public:
         CRISCVConsole(uint32_t timerus, uint32_t videoms, uint32_t cpufreq);
         ~CRISCVConsole();
@@ -127,6 +137,10 @@ class CRISCVConsole{
         void Stop();
 
         void Step();
+
+        void RecordStart();
+
+        bool RecordStop(std::string &filePath);
 
         void PressDirection(EDirection dir);
         void ReleaseDirection(EDirection dir);
@@ -216,7 +230,8 @@ class CRISCVConsole{
             return DRegisterMemoryBase;
         };
 
-        
+        void AddFWEvent(std::string &data);
+        void AddCREvent(std::string &data);
 
 };
 

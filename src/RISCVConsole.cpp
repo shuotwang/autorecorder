@@ -3,6 +3,7 @@
 #include "RAMMemoryDevice.h"
 #include "RISCVBlockInstructionCache.h"
 #include "GraphicFactory.h"
+#include "AutoRecorder.h"
 #include <iostream>
 #include <functional>
 #include <algorithm>
@@ -34,6 +35,9 @@ CRISCVConsole::CRISCVConsole(uint32_t timerus, uint32_t videoms, uint32_t cpufre
 
     DRefreshScreenBuffer.store(false);
     DVideoController = std::make_shared< CVideoController >();
+
+    // autorecorder change
+    DAutoRecorder = std::make_shared< CAutoRecorder>();
 
     DMemoryController = std::make_shared< CMemoryControllerDevice >(32);    
     DMainMemory = std::make_shared< CRAMMemoryDevice >(DMainMemorySize);
@@ -92,6 +96,7 @@ void CRISCVConsole::SystemThreadExecute(){
     bool HitBreakpoint = false;
     DSystemAcknowledge.store(to_underlying(EThreadState::Run));
     while(DSystemCommand.load() == to_underlying(EThreadState::Run)){
+        DAutoRecorder->IncrementCycle();
         if(SystemStep()){
             HitBreakpoint = true;
             break;
@@ -137,6 +142,9 @@ void CRISCVConsole::SystemStop(){
         DSystemThread->join();
         DSystemThread.reset();
         DSystemAcknowledge.store(to_underlying(EThreadState::Stop));
+
+        // autorecorder change
+        DAutoRecorder->Reset();
     }
     else{
         if(!DCPUThread){
@@ -166,6 +174,17 @@ bool CRISCVConsole::SystemStep(){
         DVideoTicks = uint64_t(DVideoDelayMS) * DDebugCPUFreq / 1000;
     }
     return DBreakpoints.end() != DBreakpoints.find(DCPU->ProgramCounter());
+}
+
+void CRISCVConsole::SystemRecordStart(){
+    DAutoRecorder->Reset();
+
+}
+
+bool CRISCVConsole::SystemRecordStop(std::string &filePath) {
+    DAutoRecorder->OutputJSONFile(filePath);
+    DAutoRecorder->Reset();
+
 }
 
 void CRISCVConsole::ResetComponents(){
@@ -294,7 +313,6 @@ void CRISCVConsole::Reset(){
 
 void CRISCVConsole::PowerOn(){
     Reset();
-    std::cout << DDebugMode << std::endl;
     if(!DDebugMode){
         SystemRun();
     }
@@ -316,7 +334,16 @@ void CRISCVConsole::Step(){
     SystemStep();
 }
 
+void CRISCVConsole::RecordStart(){
+    SystemRecordStart();
+}
+
+bool CRISCVConsole::RecordStop(std::string &filePath){
+    return SystemRecordStop(filePath);
+}
+
 void CRISCVConsole::PressDirection(EDirection dir){
+    // DAutoRecorder->AddDirectionEvent(dir)
     DChipset->ControllerPress(to_underlying(dir));
 }
 
@@ -325,6 +352,7 @@ void CRISCVConsole::ReleaseDirection(EDirection dir){
 }
 
 void CRISCVConsole::PressButton(EButtonNumber button){
+    // DAutoRecorder->AddButtonEvent(button);
     DChipset->ControllerPress(to_underlying(button));
 }
 
@@ -367,6 +395,8 @@ bool CRISCVConsole::VideoTimerTick(std::shared_ptr<CGraphicSurface> screensurfac
 }
 
 bool CRISCVConsole::ProgramFirmware(std::shared_ptr< CDataSource > elfsrc){
+    // AutoReorder
+
     // Program the firmware
     CElfLoad ElfFile(elfsrc);
     if(ElfFile.ValidFile()){
@@ -490,4 +520,12 @@ void CRISCVConsole::ClearBreakpoints(){
     if(CurrentState == to_underlying(EThreadState::Run)){
         SystemRun();
     }
+}
+
+void CRISCVConsole::AddFWEvent(std::string &data) {
+    DAutoRecorder->AddFWEvent(data);
+}
+
+void CRISCVConsole::AddCREvent(std::string &data) {
+    DAutoRecorder->AddCREvent(data);
 }
