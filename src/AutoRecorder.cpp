@@ -53,6 +53,8 @@ bool CAutoRecorder::AddFWEvent(std::string &data) {
     value.SetString(data.c_str(), Allocator);  
     root.AddMember(key, value, Allocator);
 
+    DOutputJSONObjectArray.PushBack(root, Allocator);
+
     return true;
 }
 
@@ -75,23 +77,11 @@ bool CAutoRecorder::AddCREvent(std::string &data) {
     value.SetString(data.c_str(), Allocator);  
     root.AddMember(key, value, Allocator);
 
+    DOutputJSONObjectArray.PushBack(root, Allocator);
+
     return true;
 }
 bool CAutoRecorder::AddDirectionEvent(std::string &type){
-    return true;
-}
-
-bool CAutoRecorder::AddButtonEvent(std::string &type) {
-    // if (button == CRISCVConsole::EButtonNumber::Button1){
-    //     Type = U_BUTTON_STRING;
-    // } else if (button == CRISCVConsole::EButtonNumber::Button2){
-    //     Type == I_BUTTON_STRING;
-    // } else if (button == CRISCVConsole::EButtonNumber::Button3) {
-    //     Type == J_BUTTON_STRING;
-    // } else if (button == CRISCVConsole::EButtonNumber::Button4) {
-    //     Type == K_BUTTON_STRING;
-    // }
-
     rapidjson::Document::AllocatorType &Allocator = DOutputJSONDocument.GetAllocator();
     
     rapidjson::Value root(rapidjson::kObjectType);
@@ -109,6 +99,32 @@ bool CAutoRecorder::AddButtonEvent(std::string &type) {
     key.SetString("Data", Allocator);  
     value.SetString("", Allocator);  
     root.AddMember(key, value, Allocator);
+
+    DOutputJSONObjectArray.PushBack(root, Allocator);
+
+    return true;
+}
+
+bool CAutoRecorder::AddButtonEvent(std::string &type) {
+    rapidjson::Document::AllocatorType &Allocator = DOutputJSONDocument.GetAllocator();
+    
+    rapidjson::Value root(rapidjson::kObjectType);
+    rapidjson::Value key(rapidjson::kStringType);  
+    rapidjson::Value value(rapidjson::kStringType); 
+
+    key.SetString("Cycle", Allocator);  
+    value.SetString(std::to_string(DCycleCount).c_str(), Allocator);  
+    root.AddMember(key, value, Allocator);
+
+    key.SetString("Type", Allocator);  
+    value.SetString(type.c_str(), Allocator);  
+    root.AddMember(key, value, Allocator);
+
+    key.SetString("Data", Allocator);  
+    value.SetString("", Allocator);  
+    root.AddMember(key, value, Allocator);
+
+    DOutputJSONObjectArray.PushBack(root, Allocator);
 
     return true;
 }
