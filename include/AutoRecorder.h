@@ -17,7 +17,7 @@
 
 class CAutoRecorder {
     protected:
-        uint32_t DCycleCount = 0;
+        uint64_t DCycleCount = 0;
 
         rapidjson::Document DOutputJSONDocument;
         rapidjson::Value DOutputJSONObjectArray;
@@ -28,10 +28,20 @@ class CAutoRecorder {
         static const std::string DIRECTION_LEFT_STRING;
         static const std::string DIRECTION_RIGHT_STRING;
 
+        static const std::string DIRECTION_UP_RELEASE_STRING;
+        static const std::string DIRECTION_DOWN_RELEASE_STRING;
+        static const std::string DIRECTION_LEFT_RELEASE_STRING;
+        static const std::string DIRECTION_RIGHT_RELEASE_STRING;
+
         static const std::string U_BUTTON_STRING;
         static const std::string I_BUTTON_STRING;
         static const std::string J_BUTTON_STRING;
         static const std::string K_BUTTON_STRING;
+
+        static const std::string U_BUTTON_RELEASE_STRING;
+        static const std::string I_BUTTON_RELEASE_STRING;
+        static const std::string J_BUTTON_RELEASE_STRING;
+        static const std::string K_BUTTON_RELEASE_STRING;
 
         static const std::string INSERT_FW_STRING;
         static const std::string INSERT_CR_STRING;
@@ -42,7 +52,10 @@ class CAutoRecorder {
         bool AddFWEvent(std::string &data);
         bool AddCREvent(std::string &data);
         bool AddDirectionEvent(std::string &type);
+        // bool AddDirectionReleaseEvent(std::string &type);
+
         bool AddButtonEvent(std::string &type);
+        // bool AddButtonReleaseEvent(std::string &type);
 
         void OutputJSONFile(std::string &path);
 

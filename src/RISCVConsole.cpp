@@ -356,6 +356,17 @@ void CRISCVConsole::PressDirection(EDirection dir){
 }
 
 void CRISCVConsole::ReleaseDirection(EDirection dir){
+    std::string Type;
+    if (dir == EDirection::Up) {
+        Type = CAutoRecorder::DIRECTION_UP_RELEASE_STRING;
+    } else if (dir == EDirection::Down) {
+        Type = CAutoRecorder::DIRECTION_DOWN_RELEASE_STRING;
+    } else if (dir == EDirection::Left) {
+        Type = CAutoRecorder::DIRECTION_LEFT_RELEASE_STRING;
+    } else if (dir == EDirection::Right) {
+        Type = CAutoRecorder::DIRECTION_RIGHT_RELEASE_STRING;
+    }
+    DAutoRecorder->AddDirectionEvent(Type);
     DChipset->ControllerRelease(to_underlying(dir));
 }
 
@@ -375,6 +386,17 @@ void CRISCVConsole::PressButton(EButtonNumber button){
 }
 
 void CRISCVConsole::ReleaseButton(EButtonNumber button){
+    std::string Type;
+    if (button == EButtonNumber::Button1) {
+        Type = CAutoRecorder::U_BUTTON_RELEASE_STRING;
+    } else if (button == EButtonNumber::Button2) {
+        Type = CAutoRecorder::I_BUTTON_RELEASE_STRING;
+    } else if (button == EButtonNumber::Button3) {
+        Type = CAutoRecorder::J_BUTTON_RELEASE_STRING;
+    } else if (button == EButtonNumber::Button4) {
+        Type = CAutoRecorder::K_BUTTON_RELEASE_STRING;
+    }
+    DAutoRecorder->AddButtonEvent(Type);
     DChipset->ControllerRelease(to_underlying(button));
 }
 

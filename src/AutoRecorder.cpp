@@ -24,10 +24,18 @@ const std::string CAutoRecorder::DIRECTION_UP_STRING = "DirectionUp";
 const std::string CAutoRecorder::DIRECTION_DOWN_STRING = "DirectionDown";
 const std::string CAutoRecorder::DIRECTION_LEFT_STRING = "DirectionLeft";
 const std::string CAutoRecorder::DIRECTION_RIGHT_STRING = "DirectionRight";
+const std::string CAutoRecorder::DIRECTION_UP_RELEASE_STRING = "DirectionUpRelease";
+const std::string CAutoRecorder::DIRECTION_DOWN_RELEASE_STRING = "DirectionDownRelease";
+const std::string CAutoRecorder::DIRECTION_LEFT_RELEASE_STRING = "DirectionLeftRelease";
+const std::string CAutoRecorder::DIRECTION_RIGHT_RELEASE_STRING = "DirectionRightRelease";
 const std::string CAutoRecorder::U_BUTTON_STRING = "UBtn";
 const std::string CAutoRecorder::I_BUTTON_STRING = "IBtn";
 const std::string CAutoRecorder::J_BUTTON_STRING = "JBtn";
 const std::string CAutoRecorder::K_BUTTON_STRING = "KBtn";
+const std::string CAutoRecorder::U_BUTTON_RELEASE_STRING = "UBtnRelease";
+const std::string CAutoRecorder::I_BUTTON_RELEASE_STRING = "IBtnRelease";
+const std::string CAutoRecorder::J_BUTTON_RELEASE_STRING = "JBtnRelease";
+const std::string CAutoRecorder::K_BUTTON_RELEASE_STRING = "KBtnRelease";
 const std::string CAutoRecorder::INSERT_FW_STRING = "InsertFW";
 const std::string CAutoRecorder::INSERT_CR_STRING = "InsertCart";
 const std::string CAutoRecorder::REMOVE_CR_STRING = "RemoveCart";
@@ -105,13 +113,9 @@ void CAutoRecorder::OutputJSONFile(std::string &path) {
 	char WriteBuffer[65535];
 	rapidjson::FileWriteStream os(f, WriteBuffer, sizeof(WriteBuffer));
 
-    std::cout << "here0" << std::endl;
-
 	rapidjson::PrettyWriter<rapidjson::FileWriteStream> Writer(os);
 	DOutputJSONDocument.Accept(Writer);
 	fclose(f);
-
-    std::cout << "here1" << std::endl;
 }
 
 CAutoRecorder::CAutoRecorder() {
@@ -130,20 +134,3 @@ void CAutoRecorder::Reset() {
 void CAutoRecorder::IncrementCycle() {
     DCycleCount++;
 }
-
-
-
-
-// rapidjson::Value CAutoRunner::FormatOutputMap(std::map<std::string, std::string> map, rapidjson::Document::AllocatorType &allocator){
-//     rapidjson::Value root(rapidjson::kObjectType);
-//     rapidjson::Value key(rapidjson::kStringType);  
-//     rapidjson::Value value(rapidjson::kStringType); 
- 
-// 	for(std::map<std::string, std::string>::const_iterator it = map.begin(); it != map.end(); ++it){
-// 		key.SetString(it->first.c_str(), allocator);  
-//    		value.SetString(it->second.c_str(), allocator);  
-//     	root.AddMember(key, value, allocator);
-// 	}
-
-//     return root;
-// }
