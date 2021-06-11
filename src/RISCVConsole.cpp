@@ -373,13 +373,13 @@ void CRISCVConsole::ReleaseDirection(EDirection dir){
 void CRISCVConsole::PressButton(EButtonNumber button){
     std::string Type;
     if (button == EButtonNumber::Button1) {
-        Type = CAutoRecorder::U_BUTTON_STRING;
+        Type = CAutoRecorder::BUTTON_1_STRING;
     } else if (button == EButtonNumber::Button2) {
-        Type = CAutoRecorder::I_BUTTON_STRING;
+        Type = CAutoRecorder::BUTTON_2_STRING;
     } else if (button == EButtonNumber::Button3) {
-        Type = CAutoRecorder::J_BUTTON_STRING;
+        Type = CAutoRecorder::BUTTON_3_STRING;
     } else if (button == EButtonNumber::Button4) {
-        Type = CAutoRecorder::K_BUTTON_STRING;
+        Type = CAutoRecorder::BUTTON_4_STRING;
     }
     DAutoRecorder->AddButtonEvent(Type);
     DChipset->ControllerPress(to_underlying(button));
@@ -388,13 +388,13 @@ void CRISCVConsole::PressButton(EButtonNumber button){
 void CRISCVConsole::ReleaseButton(EButtonNumber button){
     std::string Type;
     if (button == EButtonNumber::Button1) {
-        Type = CAutoRecorder::U_BUTTON_RELEASE_STRING;
+        Type = CAutoRecorder::BUTTON_1_RELEASE_STRING;
     } else if (button == EButtonNumber::Button2) {
-        Type = CAutoRecorder::I_BUTTON_RELEASE_STRING;
+        Type = CAutoRecorder::BUTTON_2_RELEASE_STRING;
     } else if (button == EButtonNumber::Button3) {
-        Type = CAutoRecorder::J_BUTTON_RELEASE_STRING;
+        Type = CAutoRecorder::BUTTON_3_RELEASE_STRING;
     } else if (button == EButtonNumber::Button4) {
-        Type = CAutoRecorder::K_BUTTON_RELEASE_STRING;
+        Type = CAutoRecorder::BUTTON_4_RELEASE_STRING;
     }
     DAutoRecorder->AddButtonEvent(Type);
     DChipset->ControllerRelease(to_underlying(button));
@@ -568,4 +568,8 @@ void CRISCVConsole::AddFWEvent(std::string &data) {
 
 void CRISCVConsole::AddCREvent(std::string &data) {
     DAutoRecorder->AddCREvent(data);
+}
+
+void CRISCVConsole::RemoveCREvent() {
+    DAutoRecorder->RemoveCREvent();
 }

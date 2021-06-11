@@ -1,0 +1,104 @@
+{
+    "Members": [
+        {
+            "Cycle": 0,
+            "Type": "InsertFW",
+            "Data": "/code/autorunner/files/firmware"
+        },
+        {
+            "Cycle": 0,
+            "Type": "InsertFW",
+            "Data": "/code/autorunner/files/firmware"
+        },
+        {
+            "Cycle": 0,
+            "Type": "InsertCR",
+            "Data": "/code/autorunner/files/cartridge"
+        },
+        {
+            "Cycle": 21288374,
+            "Type": "DirectionDown",
+            "Data": ""
+        },
+        {
+            "Cycle": 25877695,
+            "Type": "DirectionDownRelease",
+            "Data": ""
+        },
+        {
+            "Cycle": 29926152,
+            "Type": "DirectionUp",
+            "Data": ""
+        },
+        {
+            "Cycle": 31334467,
+            "Type": "DirectionUpRelease",
+            "Data": ""
+        },
+        {
+            "Cycle": 31968912,
+            "Type": "DirectionUp",
+            "Data": ""
+        },
+        {
+            "Cycle": 31969869,
+            "Type": "DirectionUpRelease",
+            "Data": ""
+        },
+        {
+            "Cycle": 33054135,
+            "Type": "DirectionUp",
+            "Data": ""
+        },
+        {
+            "Cycle": 38197114,
+            "Type": "DirectionRight",
+            "Data": ""
+        },
+        {
+            "Cycle": 39576189,
+            "Type": "DirectionRightRelease",
+            "Data": ""
+        },
+        {
+            "Cycle": 100851901,
+            "Type": "UBtn",
+            "Data": ""
+        },
+        {
+            "Cycle": 102518472,
+            "Type": "UBtnRelease",
+            "Data": ""
+        },
+        {
+            "Cycle": 108929053,
+            "Type": "IBtn",
+            "Data": ""
+        },
+        {
+            "Cycle": 110115649,
+            "Type": "IBtnRelease",
+            "Data": ""
+        },
+        {
+            "Cycle": 115166736,
+            "Type": "JBtn",
+            "Data": ""
+        },
+        {
+            "Cycle": 116134374,
+            "Type": "JBtnRelease",
+            "Data": ""
+        },
+        {
+            "Cycle": 119087262,
+            "Type": "KBtn",
+            "Data": ""
+        },
+        {
+            "Cycle": 120333849,
+            "Type": "KBtnRelease",
+            "Data": ""
+        }
+    ]
+}

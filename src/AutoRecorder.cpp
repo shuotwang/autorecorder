@@ -24,22 +24,22 @@ const std::string CAutoRecorder::DIRECTION_UP_STRING = "DirectionUp";
 const std::string CAutoRecorder::DIRECTION_DOWN_STRING = "DirectionDown";
 const std::string CAutoRecorder::DIRECTION_LEFT_STRING = "DirectionLeft";
 const std::string CAutoRecorder::DIRECTION_RIGHT_STRING = "DirectionRight";
+const std::string CAutoRecorder::BUTTON_1_STRING = "Button1";
+const std::string CAutoRecorder::BUTTON_2_STRING = "Button2";
+const std::string CAutoRecorder::BUTTON_3_STRING = "Button3";
+const std::string CAutoRecorder::BUTTON_4_STRING = "Button4";
 const std::string CAutoRecorder::DIRECTION_UP_RELEASE_STRING = "DirectionUpRelease";
 const std::string CAutoRecorder::DIRECTION_DOWN_RELEASE_STRING = "DirectionDownRelease";
 const std::string CAutoRecorder::DIRECTION_LEFT_RELEASE_STRING = "DirectionLeftRelease";
 const std::string CAutoRecorder::DIRECTION_RIGHT_RELEASE_STRING = "DirectionRightRelease";
-const std::string CAutoRecorder::U_BUTTON_STRING = "UBtn";
-const std::string CAutoRecorder::I_BUTTON_STRING = "IBtn";
-const std::string CAutoRecorder::J_BUTTON_STRING = "JBtn";
-const std::string CAutoRecorder::K_BUTTON_STRING = "KBtn";
-const std::string CAutoRecorder::U_BUTTON_RELEASE_STRING = "UBtnRelease";
-const std::string CAutoRecorder::I_BUTTON_RELEASE_STRING = "IBtnRelease";
-const std::string CAutoRecorder::J_BUTTON_RELEASE_STRING = "JBtnRelease";
-const std::string CAutoRecorder::K_BUTTON_RELEASE_STRING = "KBtnRelease";
+const std::string CAutoRecorder::BUTTON_1_RELEASE_STRING = "Button1Release";
+const std::string CAutoRecorder::BUTTON_2_RELEASE_STRING = "Button2Release";
+const std::string CAutoRecorder::BUTTON_3_RELEASE_STRING = "Button3Release";
+const std::string CAutoRecorder::BUTTON_4_RELEASE_STRING = "Button4Release";
 const std::string CAutoRecorder::INSERT_FW_STRING = "InsertFW";
 const std::string CAutoRecorder::INSERT_CR_STRING = "InsertCart";
 const std::string CAutoRecorder::REMOVE_CR_STRING = "RemoveCart";
-const std::string CAutoRecorder::CMD_BUTTON_STRING = "CMDBtn"; 
+const std::string CAutoRecorder::CMD_BUTTON_STRING = "CMDButton"; 
 
 
 bool CAutoRecorder::AddFWEvent(std::string &data) {
@@ -47,10 +47,12 @@ bool CAutoRecorder::AddFWEvent(std::string &data) {
     
     rapidjson::Value Root(rapidjson::kObjectType);
     rapidjson::Value Data(rapidjson::kStringType);
+    rapidjson::Value Type(rapidjson::kStringType);
     Data.SetString(data.c_str(), Allocator);
+    Type.SetString(INSERT_FW_STRING.c_str(), Allocator);
 
     Root.AddMember("Cycle", DCycleCount, Allocator);  
-    Root.AddMember("Type", "InsertFW", Allocator);
+    Root.AddMember("Type", Type, Allocator);
     Root.AddMember("Data", Data, Allocator);
 
     DOutputJSONObjectArray.PushBack(Root, Allocator);
@@ -63,16 +65,37 @@ bool CAutoRecorder::AddCREvent(std::string &data) {
     
     rapidjson::Value Root(rapidjson::kObjectType);
     rapidjson::Value Data(rapidjson::kStringType);
+    rapidjson::Value Type(rapidjson::kStringType);
     Data.SetString(data.c_str(), Allocator);
+    Type.SetString(INSERT_CR_STRING.c_str(), Allocator);
 
     Root.AddMember("Cycle", DCycleCount, Allocator);  
-    Root.AddMember("Type", "InsertCR", Allocator);
+    Root.AddMember("Type", Type, Allocator);
     Root.AddMember("Data", Data, Allocator);
 
     DOutputJSONObjectArray.PushBack(Root, Allocator);
 
     return true;
 }
+
+bool CAutoRecorder::RemoveCREvent() {
+    rapidjson::Document::AllocatorType &Allocator = DOutputJSONDocument.GetAllocator();
+    
+    rapidjson::Value Root(rapidjson::kObjectType);
+    rapidjson::Value Type(rapidjson::kStringType);
+    Type.SetString(INSERT_FW_STRING.c_str(), Allocator);
+
+    Root.AddMember("Cycle", DCycleCount, Allocator);  
+    Root.AddMember("Type", Type, Allocator);
+    Root.AddMember("Data", "", Allocator);
+
+    DOutputJSONObjectArray.PushBack(Root, Allocator);
+
+    return true;
+
+    return true;
+}
+
 bool CAutoRecorder::AddDirectionEvent(std::string &type){
     rapidjson::Document::AllocatorType &Allocator = DOutputJSONDocument.GetAllocator();
     

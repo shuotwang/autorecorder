@@ -33,15 +33,15 @@ class CAutoRecorder {
         static const std::string DIRECTION_LEFT_RELEASE_STRING;
         static const std::string DIRECTION_RIGHT_RELEASE_STRING;
 
-        static const std::string U_BUTTON_STRING;
-        static const std::string I_BUTTON_STRING;
-        static const std::string J_BUTTON_STRING;
-        static const std::string K_BUTTON_STRING;
+        static const std::string BUTTON_1_STRING;
+        static const std::string BUTTON_2_STRING;
+        static const std::string BUTTON_3_STRING;
+        static const std::string BUTTON_4_STRING;
 
-        static const std::string U_BUTTON_RELEASE_STRING;
-        static const std::string I_BUTTON_RELEASE_STRING;
-        static const std::string J_BUTTON_RELEASE_STRING;
-        static const std::string K_BUTTON_RELEASE_STRING;
+        static const std::string BUTTON_1_RELEASE_STRING;
+        static const std::string BUTTON_2_RELEASE_STRING;
+        static const std::string BUTTON_3_RELEASE_STRING;
+        static const std::string BUTTON_4_RELEASE_STRING;
 
         static const std::string INSERT_FW_STRING;
         static const std::string INSERT_CR_STRING;
@@ -51,6 +51,7 @@ class CAutoRecorder {
 
         bool AddFWEvent(std::string &data);
         bool AddCREvent(std::string &data);
+        bool RemoveCREvent();
         bool AddDirectionEvent(std::string &type);
         // bool AddDirectionReleaseEvent(std::string &type);
 

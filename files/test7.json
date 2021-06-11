@@ -1,0 +1,24 @@
+{
+    "Members": [
+        {
+            "Cycle": "0",
+            "Type": "InsertFW",
+            "Data": "/code/autorunner/files/firmware"
+        },
+        {
+            "Cycle": "43524125",
+            "Type": "InsertCR",
+            "Data": "/code/autorunner/files/cartridge"
+        },
+        {
+            "Cycle": "59428907",
+            "Type": "DirectionDown",
+            "Data": ""
+        },
+        {
+            "Cycle": "70780170",
+            "Type": "DirectionDown",
+            "Data": ""
+        }
+    ]
+}

@@ -232,6 +232,7 @@ class CRISCVConsole{
 
         void AddFWEvent(std::string &data);
         void AddCREvent(std::string &data);
+        void RemoveCREvent();
 
 };
 

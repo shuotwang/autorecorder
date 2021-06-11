@@ -1,0 +1,69 @@
+{
+    "Members": [
+        {
+            "Cycle": "0",
+            "Type": "InsertFW",
+            "Data": "/code/autorunner/files/firmware"
+        },
+        {
+            "Cycle": "29634516",
+            "Type": "InsertCR",
+            "Data": "/code/autorunner/files/cartridge"
+        },
+        {
+            "Cycle": "51967689",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "61035499",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "95479478",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "103828736",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "109216858",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "119281394",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "131398253",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "137662398",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "154858235",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "179694426",
+            "Type": "",
+            "Data": ""
+        },
+        {
+            "Cycle": "187437795",
+            "Type": "",
+            "Data": ""
+        }
+    ]
+}

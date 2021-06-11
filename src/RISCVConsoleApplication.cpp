@@ -284,6 +284,7 @@ bool CRISCVConsoleApplication::CartridgeButtonToggledEvent(std::shared_ptr<CGUIW
     }
     else if(!DCartridgeInLoading){
         DRISCVConsole->RemoveCartridge();
+        DRISCVConsole->RemoveCREvent();
         if(DDebugMode){
             DDebugInstructions->SetBufferedLines(DRISCVConsole->InstructionStrings());
             DDebugInstructionComboBox->ClearItems();
